@@ -42,15 +42,20 @@ void mostrarMapa() {
     }
 }
 
-// Buscar espacio más cercano
-bool asignarEspacio(int tipo, bool carga, int &x, int &y) {
+bool asignarEspacio(char (*mapa)[COLUMNAS], int tipo, bool carga, int &x, int &y) {
     for (int i = 0; i < FILAS; i++) {
         for (int j = 0; j < COLUMNAS; j++) {
+            if (placas[i][j] != "") continue;
 
-            if (tipo == 3 && mapa[i][j] == 'B') { x=i; y=j; return true; }
-            if (tipo == 4 && mapa[i][j] == 'E') { x=i; y=j; return true; }
-            if ((tipo == 1 || tipo == 2) && mapa[i][j] == 'P') { x=i; y=j; return true; }
-
+            if (tipo == 3 && mapa[i][j] == 'B' && esAccesible(mapa,i,j)) {
+                x=i; y=j; return true;
+            }
+            if (tipo == 4 && mapa[i][j] == 'E' && esAccesible(mapa,i,j)) {
+                x=i; y=j; return true;
+            }
+            if ((tipo == 1 || tipo == 2) && mapa[i][j] == 'P' && esAccesible(mapa,i,j)) {
+                x=i; y=j; return true;
+            }
         }
     }
     return false;
