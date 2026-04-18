@@ -31,12 +31,18 @@ void inicializarMapa() {
     mapa[FILAS-1][COLUMNAS-1] = 'S';
 }
 
-// Mostrar mapa
-void mostrarMapa() {
+void mostrarMapa(char (*mapa)[COLUMNAS]) {
     cout << "\nMAPA\n";
     for (int i = 0; i < FILAS; i++) {
         for (int j = 0; j < COLUMNAS; j++) {
-            cout << mapa[i][j] << " ";
+            
+            if (mapa[i][j] == 'V') cout << ". ";
+            else if (mapa[i][j] == 'P' || mapa[i][j]=='B' || mapa[i][j]=='E') cout << "[ ]";
+            else if (mapa[i][j] == 'X') cout << "[X]";
+            else if (mapa[i][j] == 'C') cout << "[C]";
+            else if (mapa[i][j] == 'I') cout << "I ";
+            else if (mapa[i][j] == 'S') cout << "S ";
+            else if (mapa[i][j] == 'R') cout << "[R]";
         }
         cout << endl;
     }
