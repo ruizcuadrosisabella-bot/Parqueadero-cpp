@@ -90,12 +90,35 @@ void ingresarVehiculo() {
 
     cout << "Placa: ";
     cin >> placa;
-
-    cout << "Tipo (1=Carro,2=Moto,3=Bici,4=Electrico): ";
+    
+do {
+    cout << "Tipo:\n";
+    cout << "1. Carro\n";
+    cout << "2. Moto\n";
+    cout << "3. Bicicleta\n";
+    cout << "4. Carro Electrico\n";
+    cout << "Seleccione una opcion: ";
     cin >> tipo;
 
-    cout << "Usuario (1=Normal,2=VIP,3=Empleado): ";
+    if (tipo < 1 || tipo > 4) {
+        cout << "Opcion invalida\n";
+    }
+
+} while (tipo < 1 || tipo > 4);
+
+do {
+    cout << "Tipo de usuario:\n";
+    cout << "1. Normal\n";
+    cout << "2. VIP\n";
+    cout << "3. Empleado\n";
+    cout << "Seleccione una opcion: ";
     cin >> usuario;
+
+    if (usuario < 1 || usuario > 3) {
+        cout << "Opcion invalida\n";
+    }
+
+} while (usuario < 1 || usuario > 3);
 
     if (tipo == 4) {
         cout << "¿Cargar? (1/0): ";
