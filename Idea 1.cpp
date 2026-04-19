@@ -82,7 +82,14 @@ int calcularPago(int tipo, int tiempo, bool carga, int usuario, int hora) {
     return costo;
 }
 
-// Ingresar
+bool placaExiste(string placa) {
+    for (int i=0;i<FILAS;i++)
+        for (int j=0;j<COLUMNAS;j++)
+            if (placas[i][j] == placa)
+                return true;
+    return false;
+}
+
 void ingresarVehiculo() {
     string placa;
     int tipo, usuario;
@@ -90,6 +97,11 @@ void ingresarVehiculo() {
 
     cout << "Placa: ";
     cin >> placa;
+
+    if (placaExiste(placa)) {
+    cout << "Error: la placa ya se encuentra registrada\n";
+    return;
+}
 
     cout << "Tipo (1=Carro,2=Moto,3=Bici,4=Electrico): ";
     cin >> tipo;
