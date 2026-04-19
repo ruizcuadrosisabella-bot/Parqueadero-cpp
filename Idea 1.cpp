@@ -98,8 +98,25 @@ void ingresarVehiculo() {
     cin >> usuario;
 
     if (tipo == 4) {
-        cout << "¿Cargar? (1/0): ";
-        cin >> carga;
+        string respuesta;
+
+do {
+    cout << "¿Desea cargar el vehiculo? (si/no): ";
+    cin >> respuesta;
+
+    if (respuesta == "si" || respuesta == "SI") {
+        carga = true;
+        break;
+    } 
+    else if (respuesta == "no" || respuesta == "NO") {
+        carga = false;
+        break;
+    } 
+    else {
+        cout << "Respuesta invalida\n";
+    }
+
+} while (true);
     }
 
     int x,y;
