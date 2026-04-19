@@ -152,6 +152,10 @@ void retirarVehiculo() {
                 else mapa[i][j] = 'P';
 
                 placas[i][j] = "";
+                
+                tipoVehiculo[i][j] = 0;
+                tipoUsuario[i][j] = 0;
+                cargando[i][j] = false;
 
                 return;
             }
