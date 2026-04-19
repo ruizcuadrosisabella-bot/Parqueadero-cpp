@@ -16,8 +16,7 @@ int tipoUsuario[FILAS][COLUMNAS];
 time_t horaEntrada[FILAS][COLUMNAS];
 bool cargando[FILAS][COLUMNAS];
 
-// Inicializar
-void inicializarMapa() {
+void inicializarMapa(char (*mapa)[COLUMNAS]) {
     for (int i = 0; i < FILAS; i++) {
         for (int j = 0; j < COLUMNAS; j++) {
             mapa[i][j] = '.';
@@ -31,8 +30,7 @@ void inicializarMapa() {
     mapa[FILAS-1][COLUMNAS-1] = 'S';
 }
 
-// Mostrar mapa
-void mostrarMapa() {
+void mostrarMapa(char (*mapa)[COLUMNAS]) {
     cout << "\nMAPA\n";
     for (int i = 0; i < FILAS; i++) {
         for (int j = 0; j < COLUMNAS; j++) {
@@ -42,8 +40,7 @@ void mostrarMapa() {
     }
 }
 
-// Buscar espacio más cercano
-bool asignarEspacio(int tipo, bool carga, int &x, int &y) {
+bool asignarEspacio(char (*mapa)[COLUMNAS], int tipo, bool carga, int &x, int &y) {
     for (int i = 0; i < FILAS; i++) {
         for (int j = 0; j < COLUMNAS; j++) {
 
@@ -56,7 +53,6 @@ bool asignarEspacio(int tipo, bool carga, int &x, int &y) {
     return false;
 }
 
-// Calcular pago
 int calcularPago(int tipo, int tiempo, bool carga, int usuario, int hora) {
     int costo = 0;
 
@@ -82,8 +78,7 @@ int calcularPago(int tipo, int tiempo, bool carga, int usuario, int hora) {
     return costo;
 }
 
-// Ingresar
-void ingresarVehiculo() {
+void ingresarVehiculo(char (*mapa)[COLUMNAS]) {
     string placa;
     int tipo, usuario;
     bool carga = false;
@@ -103,8 +98,8 @@ void ingresarVehiculo() {
     }
 
     int x,y;
-    if (!asignarEspacio(tipo,carga,x,y)) {
-        cout << "🚨 Parqueadero lleno\n";
+    if (!asignarEspacio(mapa, tipo,carga,x,y)) {
+        cout << "Parqueadero lleno\n";
         return;
     }
 
@@ -121,8 +116,7 @@ void ingresarVehiculo() {
     cout << "------------------\n";
 }
 
-// Retirar
-void retirarVehiculo() {
+void retirarVehiculo(char (*mapa)[COLUMNAS]) {
     string placa;
     cout << "Placa: ";
     cin >> placa;
@@ -161,18 +155,22 @@ void retirarVehiculo() {
     cout << "No encontrado\n";
 }
 
-// Buscar
 void buscarVehiculo() {
     string placa;
+    cout << "Placa: ";
     cin >> placa;
 
     for (int i = 0; i < FILAS; i++)
         for (int j = 0; j < COLUMNAS; j++)
-            if (placas[i][j] == placa)
-                cout << "Pos: " << i << "," << j << endl;
+            if (placas[i][j] == placa) {
+                int tiempo = (time(0)-horaEntrada[i][j])/60;
+                cout << "Pos: " << i << "," << j << " Tiempo: " << tiempo << "min\n";
+                return;
+            }
+    
+    cout << "Vehiculo no encontrado\n";
 }
 
-// Reservar (con clave)
 void reservar() {
     string clave;
     cout << "Clave: ";
@@ -192,7 +190,6 @@ void reservar() {
             }
 }
 
-// Estadísticas (con clave)
 void estadisticas() {
     string clave;
     cout << "Clave: ";
@@ -212,7 +209,6 @@ void estadisticas() {
     cout << "Vehiculos atendidos: " << total << endl;
 }
 
-// Disponibilidad
 void disponibilidad() {
     int libres=0,ocupados=0;
 
@@ -224,9 +220,8 @@ void disponibilidad() {
     cout << "Libres: " << libres << " Ocupados: " << ocupados << endl;
 }
 
-// MAIN
 int main() {
-    inicializarMapa();
+    inicializarMapa(mapa);
     int op;
 
     do {
@@ -234,9 +229,9 @@ int main() {
         cin >> op;
 
         switch(op) {
-            case 1: mostrarMapa(); break;
-            case 2: ingresarVehiculo(); break;
-            case 3: retirarVehiculo(); break;
+            case 1: mostrarMapa(mapa); break;
+            case 2: ingresarVehiculo(mapa); break;
+            case 3: retirarVehiculo(mapa); break;
             case 4: disponibilidad(); break;
             case 5: buscarVehiculo(); break;
             case 6: reservar(); break;
